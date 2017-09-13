@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+    <head>
+        <#if .locale == "ru_RU">
+            <link name="verdana" type="font" subtype="opentype" src="${nsfont.verdana}" src-bold="${nsfont.verdana_bold}" bytes="2" />
+        </#if>
+        <macrolist>
+            <macro id="nlheader">
+                <table style="width: 100%; font-size: 10pt;">
+                    <tr>
+                    <td rowspan="3" style="padding: 0;"><#if companyInformation.logoUrl?length != 0><img src="${companyInformation.logoUrl}" style="float: left; margin: 7px" /> </#if> ${companyInformation.companyName}<br />${companyInformation.addressText}</td>
+                    <td align="right" style="padding: 0;"><span style="font-size: 28pt;">${record@title}</span></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding: 0;"><span style="font-size: 16pt;">#${record.tranid}</span></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding: 0;">${record.trandate}</td>
+                    </tr></table>
+            </macro>
+            <macro id="nlfooter">
+                <table style="width: 100%; font-size: 8pt;">
+                    <tr>
+                    <td style="padding: 0;"><barcode codetype="code128" showtext="true" value="${record.tranid}"/></td>
+                    <td align="right" style="padding: 0;"><pagenumber/> of <totalpages/></td>
+                    </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">table {
+            <#if .locale == "zh_CN">
+        font-family: stsong, sans-serif;
+            <#elseif .locale == "zh_TW">
+        font-family: msung, sans-serif;
+            <#elseif .locale == "ja_JP">
+        font-family: heiseimin, sans-serif;
+            <#elseif .locale == "ko_KR">
+        font-family: hygothic, sans-serif;
+            <#elseif .locale == "ru_RU">
+        font-family: verdana;
+            <#else>
+        font-family: sans-serif;
+            </#if>
+        font-size: 9pt;
+            table-layout: fixed;
+        }
+        th {
+            font-weight: bold;
+            font-size: 8pt;
+            vertical-align: middle;
+            padding: 5px 6px 3px;
+            background-color: #e3e3e3;
+            color: #333333;
+        }
+        td {
+            padding: 4px 6px;
+        }
+        </style>
+    </head>
+    <body footer="nlfooter" footer-height="50pt" size="A4" align="center">
+    <table width="auto" class="header"  style="margin-top: 0; height: 150px" cellpadding="0px" cellspacing="1px" border="1px">
+        <tr>
+            <th align="left">Powerark Solar Pty Ltd</th>
+            <th align="left">Tax Invoice NO.INV-02-00023</th>
+        </tr>
+        <tr>
+            <td >Add:&nbsp;</td>
+            <td>SO 销售订单 ${record.createdfrom}</td>
+        </tr>
+        <tr>
+            <td>P:F:&nbsp;</td>
+            <td>Invoice Date:${record.saleseffectivedate}</td>
+        </tr>
+        <tr>
+            <td>Email:&nbsp;</td>
+            <td>PO#:${record. otherrefnum}</td>
+        </tr>
+        <tr>
+            <td>ABN &nbsp;</td>
+            <td>过账期间:${record.postingperiod}</td>
+        </tr>
+    </table>
+    </body>
+</pdf>

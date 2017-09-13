@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+    <head>
+        <macrolist>
+            <macro id="nlfooter">
+                <table class="footer" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <barcode codetype="code128" showtext="true" value="${record.tranid}"/>
+                        </td>
+                        <td align="right">
+                            <pagenumber/>
+                            of
+                            <totalpages/>
+                        </td>
+                    </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">
+            body {
+                text-transform: uppercase;
+                font-family: arial, sans-serif, stsong;
+                font-size: 9pt;
+            }
+
+            .nameandaddress {
+                white-space: nowrap;
+            }
+
+            .title1 {
+                font-size: 20pt;
+                font-weight: bold;
+            }
+
+            .title2 {
+                font-size: 14pt;
+                font-weight: bold;
+            }
+
+            table {
+                table-layout: fixed;
+                border-spacing: 0;
+                border-collapse: collapse;
+                width: 100%;
+                max-width: 100%;
+                text-align: left;
+            }
+
+            table tr {
+                display: table-row;
+            }
+
+            table th {
+                background-color: #c2c2c2;
+                color: #000000;
+            }
+
+            table th, table td {
+                vertical-align: top;
+                border-collapse: collapse;
+                text-align: left;
+                padding: 10px 0;
+            }
+
+            .table-border {
+                border: 0.3pt solid #000000;
+            }
+
+            .table-border th, .table-border td {
+                padding: 10px 6px;
+                border: 0.3pt solid #000000;
+            }
+
+            .left {
+                text-align: left;
+                align: left;
+            }
+
+            .center {
+                text-align: center;
+                align: center;
+            }
+
+            .right {
+                text-align: right;
+                align: right;
+            }
+
+        </style>
+    </head>
+    <body footer="nlfooter" footer-height="50pt"
+          size="A4">
+    <table class="header" style="margin-top: 0;">
+        <tr>
+            <td class="center">
+                <span class="title2">Stock Transfer Request</span>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table-border-none">
+        <tr>
+            <td>Request #: ${record.tranid}</td>
+            <td>Date Requested: ${record.trandate}</td>
+            <td>Date Required:</td>
+        </tr>
+        <tr>
+            <td>Status: ${record.status}</td>
+            <td>By:</td>
+            <td>Type:</td>
+        </tr>
+    </table>
+
+    <table class="table-border-none">
+        <tr>
+            <td>
+                From: ${record.location}<br/>
+                ${record.location.address1}${record.location.address2}${record.location.address3}<br/>
+                ${record.location.city}<br/>
+                ${record.location.state}<br/>
+                ${record.location.country}<br/>
+            </td>
+            <td>
+                To: ${record.transferlocation}<br/>
+                ${record.transferlocation.address1}${record.transferlocation.address2}${record.transferlocation.address3}<br/>
+                ${record.transferlocation.city}<br/>
+                ${record.transferlocation.state}<br/>
+                ${record.transferlocation.country}<br/>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table-border">
+        <thead>
+        <tr>
+            <th>Stockcode</th>
+            <th colspan="2">Description</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+
+
+        <tbody>
+
+        <#list record.item as item>
+            <tr>
+                <td>${item.item}</td>
+                <td colspan="2">${item.description}</td>
+                <td>${item.quantity}</td>
+            </tr>
+        </#list>
+
+        </tbody>
+
+
+    </table>
+
+    </body>
+</pdf>
